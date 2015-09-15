@@ -4,7 +4,11 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.util.List;
 
-public class Worker extends Thread {
+/**
+ * Traverses the graph of items and notifies the Accumulation of
+ * of all nodes.
+ */
+public class Worker {
   private List<Integer> ids;
   private Accumulation accumulation;
   private Api api;

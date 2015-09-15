@@ -1,5 +1,8 @@
 package com.johnbohn.analyzer;
 
+/**
+ * The main class that kicks the whole thing off.
+ */
 public class Runner {
   public static void main(String[] args) {
     Accumulation accumulation = new Accumulation();

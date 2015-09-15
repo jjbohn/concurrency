@@ -1,4 +1,4 @@
-dfmodule Analyzer do
+defmodule Analyzer do
   def run({:ok, acc} \\ Accumulator.start_link) do
     %{body: ids, status_code: 200} = Api.get!("topstories")
 
