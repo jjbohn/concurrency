@@ -16,12 +16,6 @@ defmodule Accumulator do
     |> Enum.each(fn {name, score} -> IO.puts "#{name} #{score}" end)
   end
 
-  def total(pid) do
-    GenServer.call(pid, :status)
-    |> Enum.map(&elem(&1, 1))
-    |> Enum.reduce(fn (x, acc) -> acc + x end)
-  end
-
   def handle_cast({:push, name}, list) do
     list = Map.update(list, name, 1, &(&1 + 1))
     {:noreply, list}

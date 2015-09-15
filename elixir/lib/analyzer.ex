@@ -1,4 +1,4 @@
-defmodule HackerNewsAnalyzer do
+dfmodule Analyzer do
   def run({:ok, acc} \\ Accumulator.start_link) do
     %{body: ids, status_code: 200} = Api.get!("topstories")
 
@@ -7,10 +7,7 @@ defmodule HackerNewsAnalyzer do
     items(ids, acc)
   end
 
-  def items([], acc) do
-    acc
-  end
-
+  def items([], acc), do: acc
   def items([head | tail], acc) do
     Task.async(fn -> item(head, acc) end)
     items(tail, acc)
