@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Accumulation {
   HashMap<String, Integer> users = new HashMap<String, Integer>();
 
-  public void post(Item item) {
+  public synchronized void post(Item item) {
     if (item.hasBy()) {
       String by = item.getBy();
 
