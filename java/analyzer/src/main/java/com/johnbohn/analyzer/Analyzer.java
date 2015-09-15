@@ -28,7 +28,7 @@ class Analyzer {
       System.out.println(++count);
 
       Worker worker = new Worker(this.ids, this.accumulation, this.api);
-      worker.run();
+      worker.start();
     }
   }
 }
