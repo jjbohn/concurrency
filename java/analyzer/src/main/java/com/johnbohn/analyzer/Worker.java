@@ -4,6 +4,10 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.util.List;
 
+/**
+ * Traverses the graph of items and notifies the Accumulation of
+ * of all nodes.
+ */
 public class Worker extends Thread {
   private List<Integer> ids;
   private Accumulation accumulation;
@@ -16,20 +20,22 @@ public class Worker extends Thread {
   }
 
   public void run() {
-    Integer id = this.ids.remove(0);
+    synchronized (this.ids) {
+      Integer id = this.ids.remove(0);
 
-    try {
-      Item item = this.accumulateById(id);
+      try {
+        Item item = this.accumulateById(id);
 
-      if (item.hasKids()) {
-        Integer[] child_ids = item.getKids();
+        if (item.hasKids()) {
+          Integer[] child_ids = item.getKids();
 
-        for (int i = 0; i < child_ids.length; i++) {
-          this.ids.add(child_ids[i]);
+          for (int i = 0; i < child_ids.length; i++) {
+            this.ids.add(child_ids[i]);
+          }
         }
+      } catch (UnirestException e) {
+        e.printStackTrace();
       }
-    } catch (UnirestException e) {
-      e.printStackTrace();
     }
   }
 

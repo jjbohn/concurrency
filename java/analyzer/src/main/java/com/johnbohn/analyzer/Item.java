@@ -3,6 +3,12 @@ package com.johnbohn.analyzer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * Represents a Hacker news item. It has two main values,
+ * "by" and "kids". "by" is the name of the user of an item.
+ * "kids" is an array of integers. The integers are the ids
+ * of the children.
+ */
 public class Item {
   private JSONObject jsonObj;
 

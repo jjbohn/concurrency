@@ -2,6 +2,10 @@ package com.johnbohn.analyzer;
 
 import java.util.List;
 
+/**
+ * Gets the top story root ids and starts traversing the graph
+ * with workers.
+ */
 class Analyzer {
   private Accumulation accumulation;
   private Api api;
@@ -24,7 +28,7 @@ class Analyzer {
       System.out.println(++count);
 
       Worker worker = new Worker(this.ids, this.accumulation, this.api);
-      worker.run();
+      worker.start();
     }
   }
 }

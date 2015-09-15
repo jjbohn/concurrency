@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Api {
+  /**
+   * Returns the ids of the Top 500 stories on Hacker News
+   */
   public List<Integer> getRootIds() {
     List<Integer> ids = new ArrayList<Integer>();
 
@@ -26,6 +29,12 @@ public class Api {
     return ids;
   }
 
+  /**
+   * Get an individual item from the hacker news API given an ID
+   *
+   * @param id
+   * @return Item
+   */
   public Item getItem(Integer id) throws UnirestException {
     String url = String.format("https://hacker-news.firebaseio.com/v0/item/%d.json", id);
     HttpResponse<JsonNode> jsonResponse = Unirest.get(url).asJson();
