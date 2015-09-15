@@ -1,6 +1,8 @@
 package com.johnbohn.analyzer;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Gets the top story root ids and starts traversing the graph
@@ -24,11 +26,12 @@ class Analyzer {
   public void traverse() {
     Integer count = 0;
 
-    while (!this.ids.isEmpty()) {
-      System.out.println(++count);
+    int threadPoolSize = Runtime.getRuntime().availableProcessors() * 2;
+    ExecutorService executor = Executors.newFixedThreadPool(threadPoolSize);
 
+    while (!this.ids.isEmpty()) {
       Worker worker = new Worker(this.ids, this.accumulation, this.api);
-      worker.start();
+      executor.execute(worker);
     }
   }
 }
