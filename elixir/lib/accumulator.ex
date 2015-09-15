@@ -1,6 +1,8 @@
 defmodule Accumulator do
   use GenServer
 
+  # Client side
+  # public
   def start_link do
     GenServer.start_link(__MODULE__, %{})
   end
@@ -16,11 +18,8 @@ defmodule Accumulator do
     |> Enum.each(fn {name, score} -> IO.puts "#{name} #{score}" end)
   end
 
-  def total(pid) do
-    GenServer.call(pid, :status)
-    |> Enum.map(&elem(&1, 1))
-    |> Enum.reduce(fn (x, acc) -> acc + x end)
-  end
+  # Server
+  # private
 
   def handle_cast({:push, name}, list) do
     list = Map.update(list, name, 1, &(&1 + 1))
