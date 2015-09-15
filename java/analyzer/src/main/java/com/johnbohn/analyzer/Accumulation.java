@@ -2,6 +2,10 @@ package com.johnbohn.analyzer;
 
 import java.util.HashMap;
 
+/**
+ * Holds a HashMap that stores key value pairs of the username
+ * and the number of comments.
+ */
 public class Accumulation {
   HashMap<String, Integer> users = new HashMap<String, Integer>();
 
