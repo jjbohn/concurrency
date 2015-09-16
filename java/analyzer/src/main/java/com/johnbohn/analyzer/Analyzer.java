@@ -3,6 +3,7 @@ package com.johnbohn.analyzer;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Gets the top story root ids and starts traversing the graph
@@ -18,20 +19,21 @@ class Analyzer {
     this.api = api;
   }
 
-  public void analyze() {
+  public void analyze() throws InterruptedException {
     this.ids = this.api.getRootIds();
     this.traverse();
   }
 
-  public void traverse() {
-    Integer count = 0;
-
-    int threadPoolSize = Runtime.getRuntime().availableProcessors() * 2;
+  public void traverse() throws InterruptedException {
+    int threadPoolSize = Runtime.getRuntime().availableProcessors();
     ExecutorService executor = Executors.newFixedThreadPool(threadPoolSize);
 
-    while (!this.ids.isEmpty()) {
-      Worker worker = new Worker(this.ids, this.accumulation, this.api);
+    for (Integer id: this.ids) {
+      Worker worker = new Worker(id, this.accumulation, this.api);
       executor.execute(worker);
     }
+
+    executor.shutdown();
+    executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
   }
 }
