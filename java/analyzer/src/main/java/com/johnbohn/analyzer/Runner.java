@@ -10,6 +10,7 @@ public class Runner {
 
     Analyzer analyzer = new Analyzer(accumulation, api);
     analyzer.analyze();
+    System.exit(0);
   }
 }
 
