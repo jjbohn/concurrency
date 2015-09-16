@@ -1,15 +1,15 @@
 package com.johnbohn.analyzer;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Holds a HashMap that stores key value pairs of the username
  * and the number of comments.
  */
 public class Accumulation {
-  HashMap<String, Integer> users = new HashMap<String, Integer>();
+  ConcurrentHashMap<String, Integer> users = new ConcurrentHashMap<String, Integer>();
 
-  public synchronized void post(Item item) {
+  public void post(Item item) {
     if (item.hasBy()) {
       String by = item.getBy();
 
